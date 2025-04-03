@@ -5,11 +5,11 @@ block content
     .card-body.text-center
       // Game Cover Image (ensure game.imageUrl exists)
       img(
-        src=game.imageUrl || "/images/placeholder.png", 
-        alt=game.title, 
-        class="img-fluid mb-3", 
+        src= game.imageUrl ? game.imageUrl : "/images/game-" + game.id + ".png",
+        alt= game.title,
+        class="img-fluid mb-3",
         style="max-height: 250px; object-fit: cover;"
-      )
+        )
       // Game Title
       h2.card-title.mt-2= game.title
       // Mini Description
