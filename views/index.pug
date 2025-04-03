@@ -1,0 +1,14 @@
+// views/index.pug
+extends layout
+
+block content
+  // Announcements section
+  section#announcements.mb-4
+    h1.text-center.mb-3 Platform Announcements
+    .alert.alert-info
+      p New update coming next week – expect new games and features!
+    .alert.alert-warning
+      p Scheduled maintenance on Sunday 2 AM.
+  // Link to view games
+  .text-center
+    a.btn.btn-primary(href="/games") View All Games

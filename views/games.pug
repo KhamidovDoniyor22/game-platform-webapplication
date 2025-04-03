@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1.text-center.mb-4 All Games
+  .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
+    each game in games
+      .col
+        .card.h-100
+          .card-body
+            h5.card-title= game.title
+            p.card-text= game.description.substring(0, 100) + "..."
+            p.card-text Rating: #{game.rating}
+          .card-footer.text-center
+            a.btn.btn-primary(href=`/games/${game.id}`) View Details

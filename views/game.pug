@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  .card.mb-4
+    .card-body.text-center
+      // Game Cover Image (ensure game.imageUrl exists)
+      img(
+        src=game.imageUrl || "/images/placeholder.png", 
+        alt=game.title, 
+        class="img-fluid mb-3", 
+        style="max-height: 250px; object-fit: cover;"
+      )
+      // Game Title
+      h2.card-title.mt-2= game.title
+      // Mini Description
+      p.card-text.mb-3= game.description.substring(0, 150) + "..."
+      // Star Rating (using Unicode stars)
+      - const maxStars = 5;
+      - const filledStars = Math.round(game.rating);
+      - const emptyStars = maxStars - filledStars;
+      - const starsString = '★'.repeat(filledStars) + '☆'.repeat(emptyStars);
+      p.card-text.text-warning.mb-3 Rating: #{starsString}
+      // Non-interactive PLAY button
+      button.btn.btn-success.disabled(type="button") PLAY
+
+  // Reviews & Comments Section
+  h3.mt-4 Reviews & Comments
+  if game.reviews && game.reviews.length
+    each review in game.reviews
+      .card.mb-2
+        .card-body
+          p
+            strong #{review.user}:
+            |  #{review.comment} (Rating: #{review.rating})
+  else
+    p No reviews yet.
+
+  // Feedback Form
+  h4.mt-4 Submit Your Feedback
+  form(method="POST", action=`/feedback/game/${game.id}`)
+    .mb-3
+      label.form-label(for="rating") Rating:
+      select.form-select(name="rating", required)
+        option(value="1") 1
+        option(value="2") 2
+        option(value="3") 3
+        option(value="4") 4
+        option(value="5") 5
+    .mb-3
+      label.form-label(for="comment") Comment:
+      textarea.form-control(name="comment", rows="3", required)
+    button.btn.btn-primary(type="submit") Submit Feedback
+  a.btn.btn-secondary.mt-3(href="/games") Back to Games

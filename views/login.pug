@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1.text-center.mb-4 Log In
+  if error
+    .alert.alert-danger= error
+  form(method="POST", action="/login", class="mx-auto", style="max-width: 400px;")
+    .mb-3
+      label.form-label(for="username") Username:
+      input.form-control(type="text", name="username", required)
+    .mb-3
+      label.form-label(for="password") Password:
+      input.form-control(type="password", name="password", required)
+    button.btn.btn-primary(type="submit") Log In
+  p.text-center.mt-3
+    | Don't have an account?
+    a(href="/signup") Sign Up
