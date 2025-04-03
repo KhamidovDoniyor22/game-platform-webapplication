@@ -3,18 +3,24 @@ const gamesController = require("./gamesController");
 
 exports.addFeedback = (req, res) => {
   const gameId = parseInt(req.params.id, 10);
-  const { comment, rating } = req.body;
-  const games = gamesController.__getGames();
-  const game = games.find(g => g.id === gameId);
+  const game = gamesController.__getGames().find(g => g.id === gameId);
   if (!game) {
     return res.status(404).send("Game not found");
   }
-  // Add feedback as a review and/or comment (here we add it to reviews)
-  const feedback = {
-    user: req.session.user.username,
-    comment,
-    rating: parseFloat(rating)
+
+  console.log("DEBUG: Incoming rating:", req.body.rating);
+  console.log("DEBUG: Incoming comment:", req.body.comment);
+
+  const newReview = {
+    user: req.session.user ? req.session.user.username : "Anonymous",
+    comment: req.body.comment,
+    rating: Number(req.body.rating), // Ensure this is numeric
+    date: new Date().toLocaleDateString(),
   };
-  game.reviews.push(feedback);
+
+  game.reviews.push(newReview);
+  console.log("DEBUG: Updated reviews:", game.reviews);
+
   res.redirect(`/games/${gameId}`);
 };
+

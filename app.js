@@ -39,5 +39,5 @@ app.use("/feedback", feedbackRoutes); // Feedback submission (protected route)
 app.use(errorHandler);
 
 // Start Server
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
