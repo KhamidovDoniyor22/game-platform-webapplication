@@ -1,0 +1,104 @@
+extends layout
+
+block content
+  // Main Page Heading
+  h1.text-center.mb-4.fw-bold.text-dark Epic Events
+
+  // First Row: Hot Events (3 events)
+  .row.mb-2
+    .col-12
+      h4.text-start.text-dark.mb-2(style="font-size: 1rem;") Hot Events
+  .row.row-cols-1.row-cols-md-3.g-4.mb-4
+    each event in announcements.slice(0, 3)
+      .col
+        .card.h-100.shadow-sm.rounded.event-card(style="overflow: hidden; position: relative; transition: transform 0.3s;")
+          a(href=`/announcements/${event.id}` style="text-decoration: none; color: inherit; display: block;")
+            .position-relative
+              img.card-img-top(
+                src= event.imageUrl ? event.imageUrl : ("https://picsum.photos/seed/event-" + event.id + "/400/250"),
+                alt= event.title,
+                style="object-fit: cover; width: 100%; transition: transform 0.3s;"
+              )
+              .badge.bg-danger.position-absolute.top-0.start-0.ms-2.mt-2(style="font-size: 0.7rem;") Hot!
+            .card-body.p-2
+              h5.card-title.mb-1.text-center.fw-bold= event.title
+              p.card-text.text-center.text-muted.mb-1= event.shortDescription.substring(0, 50) + "..."
+          .card-footer.bg-light.text-center.p-2
+            .d-flex.justify-content-around
+              .info-box.border.rounded.px-1
+                small.text-muted
+                  | 👥 
+                  = (event.bookings ? event.bookings.length : 0) + " in"
+              .info-box.border.rounded.px-1
+                small.text-muted
+                  | 📅 
+                  = event.eventDate ? event.eventDate : "N/A"
+              .info-box.border.rounded.px-1
+                small.text-muted
+                  | 💰 
+                  = (event.prize != null ? event.prize : 0)
+
+  // Second Row: Sport Events (5 events)
+  .row.mb-2
+    .col-12
+      h4.text-start.text-dark.mb-2(style="font-size: 1rem;") Sport Events
+  .row.row-cols-1.row-cols-md-5.g-2.mb-4
+    each event in announcements.slice(3, 8)
+      .col
+        .card.h-100.shadow-sm.rounded.event-card(style="overflow: hidden; position: relative; transition: transform 0.3s; font-size: 0.8rem;")
+          a(href=`/announcements/${event.id}` style="text-decoration: none; color: inherit; display: block;")
+            .position-relative
+              img.card-img-top(
+                src= event.imageUrl ? event.imageUrl : ("https://picsum.photos/seed/event-" + event.id + "/200/150"),
+                alt= event.title,
+                style="object-fit: cover; width: 100%; transition: transform 0.3s;"
+              )
+            .card-body.p-1
+              h6.card-title.mb-1.text-center.fw-bold= event.title
+              p.card-text.text-center.text-muted.mb-1= event.shortDescription.substring(0, 30) + "..."
+          .card-footer.bg-light.p-1.d-flex.justify-content-around
+            .info-box.border.rounded.px-1
+              small.text-muted
+                | 👥 
+                = (event.bookings ? event.bookings.length : 0) + " in"
+            .info-box.border.rounded.px-1
+              small.text-muted
+                | 📅 
+                = event.eventDate ? event.eventDate : "N/A"
+            .info-box.border.rounded.px-1
+              small.text-muted
+                | 💰 
+                = (event.prize != null ? event.prize : 0)
+
+  // Third Row: General Events (3 events)
+  .row.mb-2
+    .col-12
+      h4.text-start.text-dark.mb-2(style="font-size: 1rem;") General Events
+  .row.row-cols-1.row-cols-md-3.g-4.mb-4
+    each event in announcements.slice(8, 11)
+      .col
+        .card.h-100.shadow-sm.rounded.event-card(style="overflow: hidden; position: relative; transition: transform 0.3s;")
+          a(href=`/announcements/${event.id}` style="text-decoration: none; color: inherit; display: block;")
+            .position-relative
+              img.card-img-top(
+                src= event.imageUrl ? event.imageUrl : ("https://picsum.photos/seed/event-" + event.id + "/400/250"),
+                alt= event.title,
+                style="object-fit: cover; width: 100%; transition: transform 0.3s;"
+              )
+            .card-body.p-2
+              h5.card-title.mb-1.text-center.fw-bold= event.title
+              p.card-text.text-center.text-muted.mb-1= event.shortDescription.substring(0, 50) + "..."
+          .card-footer.bg-light.text-center.p-2
+            .d-flex.justify-content-around
+              .info-box.border.rounded.px-1
+                small.text-muted
+                  | 👥 
+                  = (event.bookings ? event.bookings.length : 0) + " in"
+              .info-box.border.rounded.px-1
+                small.text-muted
+                  | 📅 
+                  = event.eventDate ? event.eventDate : "N/A"
+              .info-box.border.rounded.px-1
+                small.text-muted
+                  | 💰 
+                  = (event.prize != null ? event.prize : 0)

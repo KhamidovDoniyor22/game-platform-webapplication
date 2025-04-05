@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1.text-center.mb-4= community.name
+  img(
+    src= community.imageUrl ? community.imageUrl : "/images/community-" + community.id + ".jpg",
+    alt= community.name,
+    class="img-fluid mb-3",
+    style="max-height: 250px; object-fit: cover;"
+  )
+  p= community.description
+  p= community.history
+  p Members: #{community.members.length}
+  if error
+    .alert.alert-danger= error
+  if success
+    .alert.alert-success= success
+  if joined && joined !== community.id
+    .alert.alert-info
+      | You have already selected a community. Either 
+      a(href="/communities/leave") Leave that community 
+      | or try joining another later.
+  else if (joined && joined === community.id)
+    .alert.alert-info You are already a member of this community.
+  else
+    form(method="POST", action=`/communities/${community.id}/join`)
+      button.btn.btn-primary(type="submit") Join Community
+  a.btn.btn-secondary.mt-3(href="/communities") Back to Communities

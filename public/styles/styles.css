@@ -10,4 +10,44 @@ body {
   footer {
     margin-top: 40px;
   }
-  
+  /* Event card hover effect */
+.event-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.event-card:hover img.card-img-top {
+  transform: scale(1.1);
+}
+
+/* Info box styling */
+.info-box {
+  font-size: 0.7rem;
+  padding: 2px 4px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+/* Hero section styling */
+.hero-announcement {
+  position: relative;
+  color: #fff;
+}
+
+.hero-announcement .overlay {
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: none; /* <-- add this line */
+  z-index: 1;
+}
+
+
+/* Participants box */
+.participants-box {
+  background-color: #f8f9fa;
+}
+
+/* Booking box */
+.booking-box {
+  background-color: #f8f9fa;
+}
+
