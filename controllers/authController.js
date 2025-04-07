@@ -1,6 +1,6 @@
 // controllers/authController.js
-// In-memory user store for demo purposes
-let users = [];
+
+let users = []; // Dummy user store
 
 exports.showSignup = (req, res) => {
   res.render("signup", { title: "Sign Up" });
@@ -8,14 +8,17 @@ exports.showSignup = (req, res) => {
 
 exports.processSignup = (req, res) => {
   const { username, password } = req.body;
-  const userExists = users.find(u => u.username === username);
-  if (userExists) {
-    return res.render("signup", { title: "Sign Up", error: "User already exists" });
+  if (!username || !password) {
+    return res.render("signup", { title: "Sign Up", error: "All fields are required." });
   }
-  const newUser = { id: Date.now(), username, password }; // NOTE: Hash passwords in production!
+  if (users.find(u => u.username === username)) {
+    return res.render("signup", { title: "Sign Up", error: "User already exists." });
+  }
+  const newUser = { username, password }; // In production, hash your passwords!
   users.push(newUser);
   req.session.user = newUser;
-  res.redirect("/");
+  // Redirect to Games page after signup
+  res.redirect("/games");
 };
 
 exports.showLogin = (req, res) => {
@@ -26,13 +29,13 @@ exports.processLogin = (req, res) => {
   const { username, password } = req.body;
   const user = users.find(u => u.username === username && u.password === password);
   if (!user) {
-    return res.render("login", { title: "Log In", error: "Invalid credentials" });
+    return res.render("login", { title: "Log In", error: "Invalid credentials." });
   }
   req.session.user = user;
-  res.redirect("/");
+  res.redirect("/games");
 };
 
 exports.logout = (req, res) => {
   req.session.destroy();
-  res.redirect("/login");
+  res.redirect("/");
 };

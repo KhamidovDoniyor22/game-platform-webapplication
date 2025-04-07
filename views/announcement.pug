@@ -1,10 +1,9 @@
 extends layout
 
 block content
-  // Hero Section with Background Image
   .hero-announcement(style="position: relative; height: 300px; overflow: hidden;")
     img.hero-bg(
-      src= event.imageUrl ? event.imageUrl : "https://picsum.photos/seed/event-hero/1200/400", 
+      src= event.imageUrl ? event.imageUrl : ("https://picsum.photos/seed/event-hero-" + event.id + "/1200/300"),
       alt= event.title,
       style="width: 100%; height: 300px; object-fit: cover;"
     )
@@ -14,44 +13,37 @@ block content
       p.mb-0
         | 📅 
         = event.eventDate ? event.eventDate : "N/A"
-
-  // Main Container
   .container.mt-4
-    // Event Details Section
     h3.fw-bold.mb-3 Details
-    p.text-muted.lead= event.details || "No further details provided for this event. Please check back for more information."
-
-    // Participants Section
+    p.lead.text-muted= event.details || "No details available."
+    
     .participants-box.mt-4.p-3.border.rounded
       h4.fw-bold.mb-2 Participants
       - var count = (event.bookings && event.bookings.length) ? event.bookings.length : 0;
-      p.mb-1 
+      p
         | Currently 
         span.text-success= count
-        |  people have booked this event.
+        |  people have booked.
       if count > 0
         ul.list-unstyled
           each email in event.bookings
             li= email
       else
-        p.text-muted No participants yet. Be the first to join!
-
-    // Comments Section
+        p.text-muted No participants yet.
+    
     .comments-section.mt-4
       h4.fw-bold.mb-3 Comments
       if event.comments && event.comments.length
         each comment in event.comments
           .card.mb-2.shadow-sm
             .card-body
-              p.mb-0 
+              p
                 strong= comment.user
-                | : 
-                = comment.text
+                | : #{comment.text}
               small.text-muted= comment.date
       else
-        p.text-muted No comments yet. Leave a comment below!
-
-    // Comment Submission Form
+        p.text-muted No comments yet.
+    
     .comment-form.mt-4
       h4.fw-bold.mb-3 Leave a Comment
       form(method="POST", action=`/announcements/${event.id}/comment`)
@@ -59,8 +51,7 @@ block content
           label.form-label(for="comment") Your Comment:
           textarea.form-control(name="comment", rows="3", required)
         button.btn.btn-secondary(type="submit") Submit Comment
-
-    // Booking Form Section
+    
     .booking-section.mt-4.border.rounded.p-3
       h4.fw-bold.mb-3 Book This Event
       if error
@@ -72,5 +63,5 @@ block content
           label.form-label(for="email") Enter your Email to book:
           input.form-control(type="email", name="email", required, placeholder="you@example.com")
         button.btn.btn-primary(type="submit") Book Now
-
+    
     a.btn.btn-secondary.mt-3(href="/announcements") Back to Events

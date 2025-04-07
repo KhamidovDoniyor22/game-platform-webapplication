@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  // Hero Section
+  .container.mt-5
+    .row.align-items-center
+      // Left Column: Illustration
+      .col-md-6.mb-4.mb-md-0
+        img.img-fluid(src="/images/finassist-hero.png", alt="FinAssist Hero", style="max-height: 350px; object-fit: cover;")
+      // Right Column: Text and Button
+      .col-md-6
+        h1.mb-3 Welcome to FinAssist!
+        p.lead
+          | FinAssist empowers you to effortlessly track income, manage expenses, 
+          | and gain valuable insights through interactive reports. Our intuitive platform 
+          | is designed to help you take control of your financial future, offering real-time 
+          | analytics and personalized budgeting tools to support smart money decisions.
+        a.btn.btn-primary.btn-lg(href="/signup") Get Started
+
+  // Feature Section
+  .container.mt-5
+    .row
+      // First Feature Card
+      .col-md-6.mb-4
+        .card.shadow-sm.border-0
+          .row.g-0
+            .col-4
+              img.card-img-left.img-fluid(src="/images/track-expenses.jpg", alt="Track Expenses", style="height: 100%; object-fit: cover;")
+            .col-8
+              .card-body
+                h4.card-title Track Income & Expenses
+                p.card-text Keep an eye on all your transactions in one place.
+
+      // Second Feature Card
+      .col-md-6.mb-4
+        .card.shadow-sm.border-0
+          .row.g-0
+            .col-4
+              img.card-img-left.img-fluid(src="/images/generate-reports.jpg", alt="Generate Reports", style="height: 100%; object-fit: cover;")
+            .col-8
+              .card-body
+                h4.card-title Generate Reports
+                p.card-text Visualize your financial data with interactive charts and diagrams.

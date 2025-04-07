@@ -5,7 +5,6 @@ block content
   .list-group
     each community in communities
       .list-group-item.d-flex.justify-content-between.align-items-center
-        // Left Side: Community Info with image and member count
         .d-flex.align-items-center
           img.rounded-circle(
             src= community.imageUrl ? community.imageUrl : ("https://picsum.photos/seed/community-" + community.id + "/50/50"),
@@ -16,7 +15,6 @@ block content
             h5.mb-0= community.name
             p.text-muted.small.mb-0= community.description
             p.text-muted.small.mb-0 Members: #{community.members.length}
-        // Right Side: Follow/Unfollow Toggle Button
         if followedCommunities && followedCommunities.indexOf(community.id) > -1
           form(method="POST", action=`/communities/${community.id}/follow`)
             button.btn.btn-danger.btn-sm(type="submit") Unfollow

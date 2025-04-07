@@ -1,46 +1,55 @@
 extends layout
 
 block content
-  // Game Detail Card
-  .card.mb-4
+  // Hero-Style Card for Game Details
+  .card.mb-4.shadow-sm
     .card-body.text-center
-      // Game Cover Image (uses game.imageUrl if available, or falls back to a file named "game-{id}.jpg")
+      // Game Cover Image (fallback to "game-{id}.jpg" if none)
       img(
-        src= game.imageUrl ? game.imageUrl : "/images/game-" + game.id + ".png", 
+        src= game.imageUrl ? game.imageUrl : ("/images/game-" + game.id + ".png"), 
         alt= game.title, 
         class="img-fluid mb-3", 
-        style="max-height: 250px; object-fit: cover;"
+        style="max-height: 250px; object-fit: contain;"
       )
       // Game Title
       h2.card-title.mt-2= game.title
-      // Mini Description (first 150 characters)
-      p.card-text.mb-3= game.description.substring(0, 150) + "..."
+      // Mini Description (up to 150 characters)
+      p.card-text.text-muted.mb-3= game.description.substring(0, 150) + "..."
+      // Overall Rating in Stars
+      - const maxStars = 5;
+      - const filledStars = Math.round(game.overallRating || 0);
+      - const emptyStars = maxStars - filledStars;
+      - const starsString = '★'.repeat(filledStars) + '☆'.repeat(emptyStars);
+      p.text-warning.mb-2 Overall Rating: #{starsString}
       // Non-interactive PLAY button
       button.btn.btn-success.disabled(type="button") PLAY
 
-  // Comments Section (User Reviews)
+  // User Reviews Section
   .container.mt-4
     h3.text-center.mb-4 User Reviews
 
+    // If there are reviews, list them. Otherwise, show a "No reviews" message.
     if game.reviews && game.reviews.length
       each review in game.reviews
-        .card.mb-3
+        .card.mb-3.shadow-sm
           .card-body
+            // Top row: user name & date
             .d-flex.justify-content-between.mb-2
-              strong #{review.user}
-              small.text-muted #{review.date || "N/A"}
-            // Display star rating for each review
+              strong= review.user
+              small.text-muted= review.date || "N/A"
+            // Star rating for each review
             .text-warning.mb-2
-              - let reviewStars = Math.round(review.rating);
-              - let reviewStarsStr = '★'.repeat(reviewStars) + '☆'.repeat(5 - reviewStars);
+              - var reviewStars = Math.round(review.rating);
+              - var reviewStarsStr = '★'.repeat(reviewStars) + '☆'.repeat(5 - reviewStars);
               span #{reviewStarsStr}
-            p #{review.comment}
+            // The actual comment
+            p= review.comment
     else
-      p.text-center No reviews available.
+      p.text-center.text-muted No reviews available.
 
-    // Feedback Form for New Review Submission
-    h4.mt-4 Submit Your Feedback
-    form(method="POST", action=`/feedback/game/${game.id}`)
+    // Feedback Form
+    h4.mt-5 Submit Your Feedback
+    form(method="POST", action=`/games/feedback/game/${game.id}`)
       .mb-3
         label.form-label(for="rating") Rating:
         select.form-select(name="rating", required)
@@ -53,4 +62,5 @@ block content
         label.form-label(for="comment") Comment:
         textarea.form-control(name="comment", rows="3", required)
       button.btn.btn-primary(type="submit") Submit Feedback
-    a.btn.btn-secondary.mt-3(href="/games") Back to Games
+
+    a.btn.btn-secondary.mt-4(href="/games") Back to Games
