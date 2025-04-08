@@ -1,5 +1,3 @@
-// controllers/announcementsController.js
-
 let announcements = [
   { id: 1, title: "Gaming Tournament", shortDescription: "Join our annual gaming tournament.", details: "Full details about the event.", imageUrl: "", bookings: ["user1@gmail.com"], eventDate: "Apr 10, 2025", prize: 5000, comments: [] },
   { id: 2, title: "New Game Launch", shortDescription: "Experience the new game before anyone else!", details: "Exclusive demos and giveaways.", imageUrl: "", bookings: [], eventDate: "Apr 15, 2025", prize: 2000, comments: [] },
